@@ -1,0 +1,15 @@
+{
+  "name": "mevak-translator",
+  "version": "1.0.0",
+  "description": "Traductor para Mevak Experience Travel",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.18.1",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
