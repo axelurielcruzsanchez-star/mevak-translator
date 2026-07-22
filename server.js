@@ -7,42 +7,39 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Página de prueba
 app.get("/", (req, res) => {
     res.send("✅ Mevak Translator funcionando");
 });
 
-// Ruta para traducir
-app.post("/traducir", async (req, res) => {
-
+app.post("/translate", async (req, res) => {
     try {
+        const { text } = req.body;
 
-        const { texto, origen, destino } = req.body;
-
-        const respuesta = await axios.post(
-            "https://translate.argosopentech.com/translate",
+        const response = await axios.post(
+            "https://libretranslate.de/translate",
             {
-                q: texto,
-                source: origen,
-                target: destino,
+                q: text,
+                source: "es",
+                target: "en",
                 format: "text"
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
             }
         );
 
         res.json({
-            traduccion: respuesta.data.translatedText
+            translatedText: response.data.translatedText
         });
 
     } catch (error) {
-
-        console.log(error.message);
-
+        console.error(error.message);
         res.status(500).json({
-            error: "No fue posible traducir."
+            error: "Error al traducir"
         });
-
     }
-
 });
 
 const PORT = process.env.PORT || 3000;
